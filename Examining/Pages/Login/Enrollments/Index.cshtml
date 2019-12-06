@@ -1,0 +1,65 @@
+@page
+@model Examining.Pages.Login.Enrollments.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+<h1>Thông Tin Lịch Đăng Kí</h1>
+<p>
+    <a asp-page="Create">Create New</a>
+</p> 
+<form>
+    <p>
+        <!-- Name: 
+        <select asp-for="DoctorPhone" asp-items="Model.Names">
+            <option value="">All</option>
+        </select> -->
+       <!-- Find by name:  
+        <input type="text" name="searchString" value="@ViewData["searchString"]"/>
+        <input type="submit" value="Filter"/> -->
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ListEnrollment[0].PatientId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ListEnrollment[0].DoctorId)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.ListEnrollment[0].EnrollmentDate)       
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.ListEnrollment)
+{
+    <tr>
+         <td>
+            @Html.DisplayFor(modelItem => item.PatientId)
+         </td>
+          <td>
+            @Html.DisplayFor(modelItem => item.DoctorId)
+            </td>
+          <td>
+            @Html.DisplayFor(modelItem => item.EnrollmentDate)
+         </td>
+        
+    </tr>
+}
+    </tbody>
+</table>
+@{
+    var preDisable = Model.ListEnrollment.HasPrevious ? "" : "disabled";
+    var nextDisable = Model.ListEnrollment.HasNext ? "" : "disabled";
+}
+
+<div class="container">
+    <a  class="btn btn-default @preDisable" 
+        asp-route-pageIndex="@(Model.ListEnrollment.PageIndex - 1)">Previous</a>
+
+    <a  class="btn btn-default @nextDisable"
+        asp-route-pageIndex="@(Model.ListEnrollment.PageIndex + 1)">Next</a>
+</div>
